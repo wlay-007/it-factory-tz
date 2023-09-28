@@ -163,7 +163,7 @@ function App() {
         </div>
       )}
       {!loading && books.length > 0 && (
-        <CardGrid ref={cardGridRef} books={books} totalCount={totalItems} />
+        <CardGrid ref={cardGridRef} books={books} totalCount={books.length} />
       )}
       {books.length > 0 && books.length < totalItems && (
         <div className="button_container">

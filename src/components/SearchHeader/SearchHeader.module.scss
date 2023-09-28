@@ -19,9 +19,9 @@
 .search_input {
   background-color: #fff;
   overflow: hidden;
-  border-radius: 5px;
+  border-radius: 10px;
   display: flex;
-  box-shadow: 0px 6px 18px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 6px 18px 0px rgba(244, 244, 244);
   width: 30rem;
   position: absolute;
   top: 100%;
@@ -46,9 +46,10 @@
     padding: 10px;
     border: 0;
     outline: none;
+    transition: 0.3s;
 
     &:hover {
-      background-color: #e3e3e3;
+      background-color: #f4f4f4;
     }
   }
 }
@@ -71,6 +72,7 @@
     cursor: pointer;
     color: black;
     font-size: 14px;
+    transition: 0.3s;
 
     &::-ms-expand {
       display: none;
@@ -90,7 +92,7 @@
     }
 
     &:hover {
-      background-color: #e3e3e3;
+      background-color: #f4f4f4;
     }
   }
 }
@@ -98,6 +100,6 @@
 @media (max-width: 767px) {
   .search_input {
     max-width: none;
-    width: calc(100% - 20px);
+    width: calc(100% - 40px);
   }
 }
