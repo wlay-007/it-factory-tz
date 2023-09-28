@@ -88,3 +88,9 @@ select:focus {
 select:hover {
   background-color: #e3e3e3;
 }
+@media (max-width: 767px) {
+  .search_input {
+    max-width: none;
+    width: calc(100% - 20px);
+  }
+}
