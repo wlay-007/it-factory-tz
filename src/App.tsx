@@ -38,7 +38,13 @@ function App() {
         })
       );
       if (fetchBooks.fulfilled.match(result)) {
-        dispatch(updateBooks(result.payload.items));
+        // dispatch(updateBooks(result.payload.items));
+        const filteredBooks = result.payload.items.filter((book) =>
+          selectedCategory === "all"
+            ? true
+            : book.volumeInfo.categories?.includes(selectedCategory)
+        );
+        dispatch(updateBooks(filteredBooks));
       }
     }
   };
@@ -150,7 +156,7 @@ function App() {
           <Spin size="large" />
         </div>
       )}
-      {books.length === 0 && text.trim() !== "" && !hasSentRequest && (
+      {books.length === 0 && !hasSentRequest && (
         <div className="empty-state">
           <img src="book.svg" alt="Logo" />
           <p>Введите запрос для начала поиска</p>
@@ -164,15 +170,12 @@ function App() {
           <Button onClick={handleLoadMore} />
         </div>
       )}
-      {!loading &&
-        hasSentRequest &&
-        books.length === 0 &&
-        text.trim() !== "" && (
-          <div className="empty-state">
-            <img src="book.svg" alt="Logo" />
-            <p>Ничего не найдено</p>
-          </div>
-        )}
+      {!loading && hasSentRequest && books.length === 0 && (
+        <div className="empty-state">
+          <img src="book.svg" alt="Logo" />
+          <p>Ничего не найдено</p>
+        </div>
+      )}
     </>
   );
 }
