@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Style from "./Card.module.scss";
 
 interface Props {
@@ -14,10 +14,18 @@ const Card: React.FunctionComponent<Props> = ({
   title,
   authors,
 }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <div className={Style.card}>
       <div className={Style.cardImageBlock}>
-        <img src={image} alt={title} className={Style.cardImage} />
+        {!imageLoaded && <div className={Style.skeletonImage} />}
+        <img
+          src={image}
+          alt={title}
+          className={Style.cardImage}
+          onLoad={() => setImageLoaded(true)}
+        />
       </div>
       <div className={Style.cardContent}>
         <p className={Style.cardCategory}>{category}</p>
