@@ -45,44 +45,47 @@ function App() {
 
   const handleSortingChange = async (sorting: string) => {
     setSelectedSorting(sorting);
-    setStartIndex(1);
+    if (text.trim() !== "") {
+      setStartIndex(1);
 
-    const result = await dispatch(
-      fetchBooks({
-        startIndex: 1,
-        maxResults,
-        query: text,
-        orderBy: sorting,
-        category: selectedCategory,
-      })
-    );
+      const result = await dispatch(
+        fetchBooks({
+          startIndex: 1,
+          maxResults,
+          query: text,
+          orderBy: sorting,
+          category: selectedCategory,
+        })
+      );
 
-    if (fetchBooks.fulfilled.match(result)) {
-      dispatch(updateBooks(result.payload.items));
+      if (fetchBooks.fulfilled.match(result)) {
+        dispatch(updateBooks(result.payload.items));
+      }
     }
   };
 
   const handleCategoryChange = async (category: string) => {
     setSelectedCategory(category);
-
-    const result = await dispatch(
-      fetchBooks({
-        startIndex: 1,
-        maxResults,
-        query: text,
-        orderBy: selectedSorting,
-        category, // Обновленная строка
-      })
-    );
-
-    if (fetchBooks.fulfilled.match(result)) {
-      const filteredBooks = result.payload.items.filter((book) =>
-        category === "all"
-          ? true
-          : book.volumeInfo.categories?.includes(category)
+    if (text.trim() !== "") {
+      const result = await dispatch(
+        fetchBooks({
+          startIndex: 1,
+          maxResults,
+          query: text,
+          orderBy: selectedSorting,
+          category,
+        })
       );
 
-      dispatch(updateBooks(filteredBooks));
+      if (fetchBooks.fulfilled.match(result)) {
+        const filteredBooks = result.payload.items.filter((book) =>
+          category === "all"
+            ? true
+            : book.volumeInfo.categories?.includes(category)
+        );
+
+        dispatch(updateBooks(filteredBooks));
+      }
     }
   };
 
