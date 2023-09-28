@@ -1,0 +1,17 @@
+.button_container {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.empty-state {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.empty-state img {
+  width: 200px;
+}

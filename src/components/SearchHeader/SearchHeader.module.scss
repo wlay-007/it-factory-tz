@@ -1,0 +1,90 @@
+.header {
+  min-width: 100%;
+  position: relative;
+  height: 5rem;
+  background-image: linear-gradient(66deg, #e6fbfe 0%, #edddfb 100%);
+  text-align: center;
+  animation: gradientAnimation 1s linear infinite alternate;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
+.search_input {
+  overflow: hidden;
+  border-radius: 5px;
+  display: flex;
+  -webkit-box-shadow: 0px 6px 18px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 6px 18px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 6px 18px 0px rgba(34, 60, 80, 0.2);
+  width: 30rem;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.search_input input {
+  background-color: #fff;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+.search_input button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  background-color: #fff;
+  padding: 10px;
+  border: 0;
+  outline: none;
+}
+.search_input button:hover {
+  background-color: #e3e3e3;
+}
+.custom_select1,
+.custom_select2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  position: relative;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 0;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+select:after {
+  content: "\25BC";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 14px;
+}
+
+select:focus {
+  outline: none;
+}
+
+select:hover {
+  background-color: #e3e3e3;
+}

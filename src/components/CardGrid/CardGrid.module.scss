@@ -1,0 +1,18 @@
+.gridContainer {
+  padding: 10px 40px 60px 40px;
+  display: grid;
+  grid-row-gap: 60px;
+  grid-column-gap: 36px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.card_block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.totalCount {
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
