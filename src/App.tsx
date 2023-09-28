@@ -1,5 +1,3 @@
-// App.tsx
-
 import React, { useState, useEffect, useRef } from "react";
 import SearchHeader from "./components/SearchHeader/SearchHeader";
 import { useAppSelector, useAppDispatch } from "./hook";
@@ -38,7 +36,6 @@ function App() {
           category: selectedCategory,
         })
       );
-
       if (fetchBooks.fulfilled.match(result)) {
         dispatch(updateBooks(result.payload.items));
       }
@@ -96,7 +93,7 @@ function App() {
     };
 
     fetchData();
-  }, [selectedCategory, selectedSorting]);
+  }, [selectedSorting]);
 
   const handleLoadMore = async () => {
     if (text.trim() !== "" && startIndex < totalItems) {
@@ -135,7 +132,7 @@ function App() {
           <Spin size="large" />
         </div>
       )}
-      {!loading && books.length === 0 && (
+      {books.length === 0 && text.trim() === "" && (
         <div className="empty-state">
           <img src="book.svg" alt="Logo" />
           <p>Введите запрос для начала поиска</p>
@@ -144,9 +141,15 @@ function App() {
       {!loading && books.length > 0 && (
         <CardGrid ref={cardGridRef} books={books} totalCount={totalItems} />
       )}
-      {books.length < totalItems && (
+      {books.length > 0 && books.length < totalItems && (
         <div className="button_container">
           <Button onClick={handleLoadMore} />
+        </div>
+      )}
+      {!loading && books.length === 0 && text.trim() !== "" && (
+        <div className="empty-state">
+          <img src="book.svg" alt="Logo" />
+          <p>Ничего не найдено</p>
         </div>
       )}
     </>

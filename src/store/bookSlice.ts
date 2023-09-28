@@ -50,6 +50,9 @@ export const fetchBooks = createAsyncThunk<
     }
 
     const data = await response.json();
+    console.log(
+      `https://www.googleapis.com/books/v1/volumes?q=intitle:${query}&startIndex=${startIndex}&maxResults=${maxResults}&orderBy=${orderBy}&key=AIzaSyATJzoDhcUV8WdyuFiuyEIIK8BSlIN8JHQ`
+    );
 
     return {
       totalItems: data.totalItems,
@@ -91,6 +94,7 @@ const bookSlise = createSlice({
 
       .addCase(updateBooks, (state, action) => {
         state.list = action.payload;
+        console.log(action.payload);
       })
 
       .addMatcher(isError, (state, action: PayloadAction<string>) => {

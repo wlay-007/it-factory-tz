@@ -35,12 +35,12 @@ const Header: React.FunctionComponent<Props> = ({
             onChange={(e) => onCategoryChange(e.target.value)}
           >
             <option value="all">All</option>
-            <option value="art">Art</option>
-            <option value="biography">Biography</option>
-            <option value="computers">Computers</option>
-            <option value="history">History</option>
-            <option value="medical">Medical</option>
-            <option value="poetry">Poetry</option>
+            <option value="Art">Art</option>
+            <option value="Biography">Biography</option>
+            <option value="Computers">Computers</option>
+            <option value="History">History</option>
+            <option value="Medical">Medical</option>
+            <option value="Poetry">Poetry</option>
           </select>
         </div>
         <div className={Style.custom_select2}>
