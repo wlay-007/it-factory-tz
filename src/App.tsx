@@ -5,6 +5,7 @@ import CardGrid from "./components/CardGrid/CardGrid";
 import { Spin } from "antd";
 import { fetchBooks, updateBooks } from "./store/bookSlice";
 import Button from "./components/Button/Button";
+import FloatButton from "./components/FloatButton/FloatButton";
 import "./App.scss";
 
 function App() {
@@ -20,6 +21,28 @@ function App() {
   const cardGridRef = useRef(null);
   const scrollPositionRef = useRef(0);
   const [hasSentRequest, setHasSentRequest] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleScroll = () => {
+    if (window.pageYOffset > 200) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+  React.useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleSearchSubmit = async (
     event: React.FormEvent<HTMLFormElement>
@@ -176,6 +199,10 @@ function App() {
           <p>Ничего не найдено</p>
         </div>
       )}
+      <FloatButton
+        onClick={scrollToTop}
+        style={{ display: isVisible ? "inline" : "none" }}
+      />
     </>
   );
 }
