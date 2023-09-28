@@ -19,12 +19,13 @@ function App() {
   const loading = useAppSelector((state) => state.books.loading);
   const cardGridRef = useRef(null);
   const scrollPositionRef = useRef(0);
+  const [hasSentRequest, setHasSentRequest] = useState(false);
 
   const handleSearchSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
-
+    setHasSentRequest(true);
     if (text.trim() !== "") {
       setStartIndex(1);
       const result = await dispatch(
@@ -64,11 +65,25 @@ function App() {
   const handleCategoryChange = async (category: string) => {
     setSelectedCategory(category);
 
-    const filteredBooks = books.filter((book) =>
-      category === "all" ? true : book.volumeInfo.categories?.includes(category)
+    const result = await dispatch(
+      fetchBooks({
+        startIndex: 1,
+        maxResults,
+        query: text,
+        orderBy: selectedSorting,
+        category, // Обновленная строка
+      })
     );
 
-    await dispatch(updateBooks(filteredBooks));
+    if (fetchBooks.fulfilled.match(result)) {
+      const filteredBooks = result.payload.items.filter((book) =>
+        category === "all"
+          ? true
+          : book.volumeInfo.categories?.includes(category)
+      );
+
+      dispatch(updateBooks(filteredBooks));
+    }
   };
 
   useEffect(() => {
@@ -132,7 +147,7 @@ function App() {
           <Spin size="large" />
         </div>
       )}
-      {books.length === 0 && text.trim() === "" && (
+      {books.length === 0 && text.trim() !== "" && !hasSentRequest && (
         <div className="empty-state">
           <img src="book.svg" alt="Logo" />
           <p>Введите запрос для начала поиска</p>
@@ -146,12 +161,15 @@ function App() {
           <Button onClick={handleLoadMore} />
         </div>
       )}
-      {!loading && books.length === 0 && text.trim() !== "" && (
-        <div className="empty-state">
-          <img src="book.svg" alt="Logo" />
-          <p>Ничего не найдено</p>
-        </div>
-      )}
+      {!loading &&
+        hasSentRequest &&
+        books.length === 0 &&
+        text.trim() !== "" && (
+          <div className="empty-state">
+            <img src="book.svg" alt="Logo" />
+            <p>Ничего не найдено</p>
+          </div>
+        )}
     </>
   );
 }
